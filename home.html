@@ -1,0 +1,133 @@
+<!--code-->
+<html lang="en">  
+ <head>  
+   <meta charset="UTF-8">  
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+   <link rel="stylesheet" href="styles.css">
+   <title>Heart Disease Prediction</title>  
+ </head>  
+ <style>  
+ body{  
+   background-image: url('jpg1.jpg');
+   background-repeat:no-repeat ;  
+   padding: 0 10px;  
+   background-size: cover;  
+}  
+ </style>  
+ <body>  
+  <h1 style="color: white; text-align:center">Heart Disease Prediction</h1>  
+ <form action="{{url_for('predict')}}" method="post" class="wrapper">  
+  <textarea style="color: white; background: rgba(0, 0, 0, 0.3);" class="textbox" readonly> 
+Take a look what the short forms mean:  
+ 1) Age: displays the age of the individual.  
+ 2) Sex: displays the gender of the individual using the following format :  
+        0 = male (M) 
+        1 = female (F)
+ 3) Chest-pain type: displays the type of chest-pain experienced by the individual using the following format :  
+        0 = atypical angina (ATA) 
+        1 = non — anginal pain(NAP)  
+        2 = asymptotic  (ASY)
+        3 = typical angina  (TA)
+ 4) Resting Blood Pressure(RestingBP): displays the resting blood pressure value of an individual in mmHg (unit)  
+ 5) Cholestrol: displays the serum cholesterol in mg/dl (unit) 
+ 6) Fasting Blood Sugar(FastingBS): compares the fasting blood sugar value of an individual with 120mg/dl.  
+        If fasting blood sugar > 120mg/dl then : 1 (true) else : 0 (false)  
+ 7) Resting ECG : displays resting electrocardiographic results 
+        0 = left ventricular hyperthrophy(LVH)     
+        1 = normal
+        2 = having ST-T wave abnormality (ST) 
+ 8) Max heart rate achieved(MaxHR) : displays the max heart rate achieved by an individual.  
+ 9) Exercise induced angina(ExerciseAngina) :  
+        1 = yes  
+        0 = no  
+ 10) ST depression induced by exercise relative to rest(oldpeak): displays the value which is an integer or float.
+ 11) Peak exercise ST segment(ST Slope) :  
+        0 = downsloping (down)      
+        1 = upsloping  (up)
+        2 = flat   
+ 12) Diagnosis of heart disease : Displays whether the individual is suffering from heart disease or not :  
+ 0 = absence  
+ 1 = present.  </textarea>       
+     <table align="center" top-padding="0px" >
+      <tr> <td>  <label style="color: white">Age: </label>  </td>
+       <td >  <input type="number" id="Age" min="1" max="150" name="Age" class="infi" >  </td>
+      <td><i style="font-size: 10px; color: white;">(Age: 28 - 77)</i>  </td>
+          </tr>   
+     <br>
+       <tr>
+      <td>  <label style="color: white">Sex: </label>  </td>
+    <td >  <input type="number" min="0" max="1" name="Sex" id="Sex" class="infi">  </td>
+    <td>  <i style="font-size: 10px; color: rgb(255, 255, 255);">(Male: 0 & Female: 1)</i> </td>
+        </tr> 
+      <br>
+   <tr>
+  <td> <label style="color: white">Chest Pain Type: </label>  </td>
+<td>      <input type="number" name="ChestPainType" id="ChestPainType" min="0" max="3" class="infi">  </td>
+<td>        <i style="font-size: 10px; color: white;">(Enter Single Value From Range 0-3)</i> </td>
+        </tr> 
+      <br>
+    <tr>
+    <td>  <label style="color: white">Resting BP: </label>  </td>
+  <td>    <input name="RestingBP" id="RestingBP" type="number" min="0" max="200" class="infi">  </td>
+<td>        <i style="font-size: 10px; color: white;">(Enter Value From Range 0-200(mm Hg) )</i>  </td>
+          </tr>
+           <br/>
+          <tr>
+          <td> <label style="color: white">Cholesterol: </label> </td> 
+        <td><input name="Cholesterol" id="Cholesterol" type="number" min="0" max="603" class="infi">  </td>
+      <td>  <i style="font-size: 10px; color: white;">(Enter Value From Range 0-603(mm/dl))</i>  </td>
+          </tr>
+           <br/>
+          <tr>
+          <td> <label style="color: white">Fasting BS: </label>  </td>
+        <td><input type="number" min="0" max="1" name="FastingBS" id="FastingBS" class="infi"> </td> 
+      <td><i style="font-size: 10px; color: white;">(1 = if FastingBS>120mg/dl; 0 = otherwise)</i> </td>
+        </tr> 
+         <br/> 
+        <tr>
+        <td> <label style="color: white">Resting ECG: </label>  </td>
+      <td><input type="number" name="RestingECG" min="0" max="2" id="RestingECG" class="infi">  </td>
+    <td>    <i style="font-size: 10px; color: white;">(Enter Single Value From Range 0-2)</i>  </td>
+          </tr>
+           <br/>
+          <tr>
+          <td> <label style="color: white">Max HR: </label>  </td>
+          <td><input name="MaxHR" id="MaxHR" type="number" min="60" max="202" class="infi"></td>  
+          <td><i style="font-size: 10px; color: white;">(Enter Value From Range 60-202(mm/dl))</i>  </td>
+          </tr>
+            <br/>
+          <tr>
+          <td> <label style="color: white">Exercise Angina: </label>  </td>
+        <td> <input type="number" min="0" max="1" name="ExerciseAngina" id="ExerciseAngina" class="infi">  </td>
+      <td>  <i style="font-size: 10px; color: white;">(Exercise: 1 = YES; 0 = NO)</i>  </td>
+        </tr>
+          <br/> 
+        <tr>
+        <td> <label style="color: white">Oldpeak: </label> </td> 
+        <td><input name="Oldpeak" id="Oldpeak" type="number" class="infi"> </td> 
+        <td> <i style="font-size: 10px; color: white;">(Enter Value (-2.6) to (+6.2))</i>  </td>
+        </tr>
+          <br/>
+        <tr>
+        <td><label style="color: white">ST_Slope: </label> </td> 
+        <td><input type="number" min="0" max="2" name="ST_Slope" id="ST_Slope" class="infi"> </td> 
+        <td>  <i style="font-size: 10px; color: white;">(Enter Single Value From Range 0-2)</i> </td> 
+        </tr>
+          <br/>
+          </table>
+      
+           <div>
+          <br><br>
+        <button  class="button" type="submit" id="submit" >Predict</button>  
+         </div>
+        <div>
+        <center >  
+          <h2 style="color: white; margin-bottom:10px;">  
+            {{prediction_text}}  
+          </h2>  
+        </center>  
+        </div>
+</form>  
+</body>  
+</html>  
